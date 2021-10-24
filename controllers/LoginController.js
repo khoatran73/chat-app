@@ -18,6 +18,7 @@ class LoginController {
         // } else {
         //     res.render('login', {error: "Invalid email or password", title: "Login", email: req.body.email})
         // }
+        res.render('index')
     }
 }
 
