@@ -1,0 +1,38 @@
+<%- include('layouts/header.ejs'); -%>
+<script src="./js/chat.js"></script>
+    <div class="wrapper">
+        <section class="chat-area">
+            <header>
+                <a href="./" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+                <div class="img-group">
+                    <i class="fas fa-circle"></i>
+                    <img src="./images/uploads/avt1.jpg" alt="">
+                </div>
+                <div class="details">
+                    <span>Anh Khoa</span>
+                    <p>Đang hoạt động</p>
+                </div>
+            </header>
+            <div class="chat-box">
+
+                <div class="chat sender">
+                    <div class="details">
+                        <p>Hé lô</p>
+                    </div>
+                </div>
+
+                <div class="chat receiver">
+                    <div class="details">
+                        <p>hi</p>
+                    </div>
+                </div>
+
+            </div>
+            <form action="#" class="typing-area">
+                <input type="text" class="sender_id" name="sender_id" value="" hidden>
+                <input type="text" name="message" class="input-field" placeholder="Aa..." autocomplete="off">
+                <button><i class="fab fa-telegram-plane"></i></button>
+            </form>
+        </section>
+    </div>
+    <%- include('layouts/footer.ejs'); -%>

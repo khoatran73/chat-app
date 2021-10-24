@@ -1,0 +1,47 @@
+<%- include('layouts/header.ejs'); -%>
+    <script src="./js/index.js"></script>
+    <div class="wrapper">
+        <section class="users">
+            <header>
+                <div class="content">
+                    <div class="img-group">
+                        <i class="fas fa-circle"></i>
+                        <img src="./images/uploads/avt1.jpg" alt="">
+                    </div>
+                    <div class="details">
+                        <span>Anh Khoa</span>
+                        <p>
+                            Đang hoạt động
+                        </p>
+                    </div>
+                </div>
+                <a href="./login" class="logout">Logout</a>
+            </header>
+            <div class="search">
+                <span class="text">Chọn một User để chat</span>
+                <input type="text" id="input-search" placeholder="Nhâp tên để tìm...">
+                <button id="btn-search"><i class="fas fa-search"></i></button>
+            </div>
+            <!-- Render in db -->
+            <div class="users-list">
+                <a href="./chat">
+                    <div class="content">
+                        <div class="img-group">
+                            <i class="fas fa-circle"></i>
+                            <img src="./images/uploads/avt1.jpg" alt="">
+                        </div>
+                        <div class="details">
+                            <span>Anh Khoa</span>
+                            <p>
+                                Hello Khoa
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                
+
+            </div>
+        </section>
+    </div>
+
+    <%- include('layouts/footer.ejs'); -%>
