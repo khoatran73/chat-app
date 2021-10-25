@@ -1,22 +1,22 @@
-const socket= io();
-const chatform= $("#chat-form");
-const chatMsg= $('#message');
-chatform.submit(e =>{
+const socket = io();
+const chatForm = $("#chat-form");
+const chatMsg = $('#message');
+chatForm.submit(e => {
     e.preventDefault();
-    const msg=chatMsg.val();
-    socket.emit('on-chat',{message:msg});
+    const msg = chatMsg.val();
+    socket.emit('on-chat', { message: msg });
     chatMsg.val("");
     chatMsg.focus();
 })
-socket.on('user1',message=>{
-    
-    const chatValue=
-    `<div id="receiver" class="chat receiver">
-        <div id="chat-item-receiver" class="details">
+socket.on('user1', message => {
+
+    const chatValue =
+        `<div class="chat host">
+        <div id="chat-item-host" class="details">
             <p>${message.message}</p>
         </div>
     </div>`
     $('#chat-box').append(chatValue);
-    
+
 })
 
