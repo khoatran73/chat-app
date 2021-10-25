@@ -7,7 +7,7 @@ const methodOverride = require('method-override')
 const db = require('./server/server')
 const port = process.env.PORT || 3000
 const server = require('http').createServer(app)
-const {Server} = require('socket.io')
+const { Server } = require('socket.io')
 const io = new Server(server)
 
 require('ejs')
@@ -31,10 +31,10 @@ app.use(methodOverride('_method'))
 
 app.set('view engine', 'ejs')
 
-io.on('connection',(socket) =>{
+io.on('connection', (socket) => {
     console.log('Connected User')
-    socket.on('on-chat',data=>{
-        io.emit('user1',data);
+    socket.on('on-chat', data => {
+        io.emit('user1', data);
     })
 })
 
