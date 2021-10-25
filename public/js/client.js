@@ -18,5 +18,9 @@ socket.on('user1', message => {
     </div>`
     $('#chat-box').append(chatValue);
 
+    // scroll bottom
+    let chatBox = document.querySelector("#chat-box")
+    chatBox.scrollTop = chatBox.scrollHeight
+
 })
 
