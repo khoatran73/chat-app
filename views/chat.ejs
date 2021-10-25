@@ -1,5 +1,5 @@
 <%- include('layouts/header.ejs'); -%>
-<script src="./js/chat.js"></script>
+    <script src="./js/chat.js"></script>
     <div class="wrapper">
         <section class="chat-area">
             <header>
@@ -13,23 +13,34 @@
                     <p>Đang hoạt động</p>
                 </div>
             </header>
-            <div class="chat-box">
+            <div class="chat-box" id="chat-box">
 
-                <div class="chat sender">
+                <div class="chat guest">
                     <div class="details">
-                        <p>Hé lô</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptatum recusandae aperiam,
+                            rerum facilis impedit fugit ad quam qui provident, sunt quis. Harum quos quasi quo, error
+                            quidem facilis rem.</p>
                     </div>
                 </div>
 
-                <div class="chat receiver">
+                <div class="chat host">
                     <div class="details">
-                        <p>hi</p>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur ab eveniet delectus ex,
+                            ut dolor velit possimus architecto earum expedita quibusdam inventore numquam ad. Quisquam
+                            et ipsum est ad eveniet!</p>
+                    </div>
+                </div>
+                <div class="chat host">
+                    <div class="details">
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur ab eveniet delectus ex,
+                            ut dolor velit possimus architecto earum expedita quibusdam inventore numquam ad. Quisquam
+                            et ipsum est ad eveniet!</p>
                     </div>
                 </div>
 
             </div>
             <form action="#" class="typing-area">
-                <input type="text" class="sender_id" name="sender_id" value="" hidden>
+                <input type="text" class="guest_id" name="guest_id" value="" hidden>
                 <input type="text" name="message" class="input-field" placeholder="Aa..." autocomplete="off">
                 <button><i class="fab fa-telegram-plane"></i></button>
             </form>

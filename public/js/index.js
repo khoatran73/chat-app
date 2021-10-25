@@ -3,8 +3,12 @@ window.onload = function () {
     const inputSearch = document.querySelector("#input-search")
 
     btnSearch.addEventListener("click", function () {
-        inputSearch.style.opacity = 1
-        inputSearch.style.pointerEvents = "auto"
+        if (inputSearch.style.opacity == 1) {
+            inputSearch.style.opacity = 0
+            inputSearch.style.pointerEvents = "none"
+        } else {
+            inputSearch.style.opacity = 1
+            inputSearch.style.pointerEvents = "auto"
+        }
     })
-
 }
