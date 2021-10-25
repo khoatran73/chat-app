@@ -9,14 +9,19 @@ chatform.submit(e =>{
     chatMsg.focus();
 })
 socket.on('user1',message=>{
+    outputMessage(message);
     
+})
+
+function outputMessage(message){
     const chatValue=
-    `<div id="receiver" class="chat receiver">
-        <div id="chat-item-receiver" class="details">
+    `<div class="chat host">
+        <div class="details">
             <p>${message.message}</p>
         </div>
     </div>`
     $('#chat-box').append(chatValue);
-    
-})
+    let chatBox = document.querySelector("#chat-box")
+    chatBox.scrollTop = chatBox.scrollHeight
+}
 

@@ -3,12 +3,16 @@ const app = express()
 const route = require('./routes')
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
+const MongoStore = require('connect-mongodb-session')(expressSession)
+
+
 const methodOverride = require('method-override')
 const db = require('./server/server')
 const port = process.env.PORT || 3000
 const server = require('http').createServer(app)
 const {Server} = require('socket.io')
 const io = new Server(server)
+const bodyParser = require('body-parser');
 
 require('ejs')
 require('dotenv').config()
@@ -16,6 +20,7 @@ require('dotenv').config()
 // connect to db
 db.connect()
 
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static("public"))
@@ -23,7 +28,12 @@ app.use(cookieParser())
 app.use(expressSession({
     resave: false,
     saveUninitialized: false,
-    secret: 'secret'
+    secret: 'secret',
+    store: new MongoStore({
+        url: process.env.mongodb, //YOUR MONGODB URL
+        ttl: 1 * 24 * 60 * 60,//1 day
+        autoRemove: 'native' ,
+    })
 }))
 
 // custom method 

@@ -1,7 +1,8 @@
 function checkLogin(req, res, next) {
     if (!req.session.email) {
         res.redirect("/login")
-    } else {
+    }
+    else {
         next()
     }
 }

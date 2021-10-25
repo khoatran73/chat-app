@@ -1,5 +1,6 @@
 require("express-session")
 require('dotenv').config()
+const User=require("../server/model/User.js")
 
 class LoginController {
     get(req, res) {
@@ -10,15 +11,18 @@ class LoginController {
     }
 
     post(req, res) {
-        // const email = req.body.email
-        // const password = req.body.password
-        // if (email === process.env.EMAIL && password === process.env.PASSWORD) {
-        //     req.session.email = email
-        //     res.redirect('index')
-        // } else {
-        //     res.render('login', {error: "Invalid email or password", title: "Login", email: req.body.email})
-        // }
-        res.render('index')
+        let {email,password} = req.body
+        const user= User.findOne({email:email,password:password})
+        User.findOne({email:email,password:password})
+            .then(data => {
+                if(data){
+                    req.session.email = email
+                    res.render('index',{data})
+                }
+            }).catch(err => {
+                res.render('login', {error: "Invalid email or password", title: "Login", email:email})
+            })
+        
     }
 }
 

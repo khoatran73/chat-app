@@ -5,4 +5,6 @@ const registerController = require('../controllers/RegisterController')
 
 router.get('/', registerController.get)
 
+router.post('/', registerController.post)
+
 module.exports = router

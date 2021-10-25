@@ -2,12 +2,16 @@ const loginRouter = require('./login')
 const homeRouter = require('./home')
 const chatRouter = require('./chat')
 const registerRouter = require('./register')
+const logoutRouter = require('./logout')
+const checkLogin = require('../middleware/checkLogin')
+const rejectLogin = require('../middleware/rejectLogin')
 
 function route(app) {
-    app.use('/login', loginRouter)
-    app.use('/chat', chatRouter)
-    app.use('/register', registerRouter)
-    app.use('/', homeRouter)
+    app.use('/login',rejectLogin, loginRouter)
+    app.use('/logout', logoutRouter)
+    app.use('/chat',checkLogin , chatRouter)
+    app.use('/register',rejectLogin, registerRouter)
+    app.use('/',checkLogin , homeRouter)
 }
 
 module.exports = route

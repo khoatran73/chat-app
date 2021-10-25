@@ -6,7 +6,8 @@ async function connect() {
         console.log('connect to MongoDB successfully')
     }
     catch (err) {
-        console.log("connection failed")
+        console.log("connection to MongoDB failed")
+        console.log(err)
     }
 }
 
