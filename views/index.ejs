@@ -17,83 +17,13 @@
                 </div>
                 <a href="./logout" class="logout">Logout</a>
             </header>
-            <div class="search">
-                <span class="text">Chọn một User để chat</span>
-                <input type="text" id="input-search" placeholder="Nhâp tên để tìm...">
-                <button id="btn-search"><i class="fas fa-search"></i></button>
-            </div>
+            <form id="search-user" action='/search' method='post' class="search">
+                <span id="search_txt" class="text">Chọn một User để chat</span>
+                <input name="search_user" type="text" id="input-search" placeholder="Nhâp tên để tìm...">
+                <button type="submit" id="btn-search"><i class="fas fa-search"></i></button>
+            </form>
             <!-- Render in db -->
             <div class="users-list">
-                <a href="./chat">
-                    <div class="content">
-                        <div class="img-group">
-                            <i class="fas fa-circle"></i>
-                            <img src="./images/uploads/avt1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <span>Anh Khoa</span>
-                            <p>
-                                Hello Khoa
-                            </p>
-                        </div>
-                    </div>
-                </a>
-                <a href="./chat">
-                    <div class="content">
-                        <div class="img-group">
-                            <i class="fas fa-circle"></i>
-                            <img src="./images/uploads/avt1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <span>Anh Khoa</span>
-                            <p>
-                                Hello Khoa
-                            </p>
-                        </div>
-                    </div>
-                </a>
-                <a href="./chat">
-                    <div class="content">
-                        <div class="img-group">
-                            <i class="fas fa-circle"></i>
-                            <img src="./images/uploads/avt1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <span>Anh Khoa</span>
-                            <p>
-                                Hello Khoa
-                            </p>
-                        </div>
-                    </div>
-                </a>
-                <a href="./chat">
-                    <div class="content">
-                        <div class="img-group">
-                            <i class="fas fa-circle"></i>
-                            <img src="./images/uploads/avt1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <span>Anh Khoa</span>
-                            <p>
-                                Hello Khoa
-                            </p>
-                        </div>
-                    </div>
-                </a>
-                <a href="./chat">
-                    <div class="content">
-                        <div class="img-group">
-                            <i class="fas fa-circle"></i>
-                            <img src="./images/uploads/avt1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <span>Anh Khoa</span>
-                            <p>
-                                Hello Khoa
-                            </p>
-                        </div>
-                    </div>
-                </a>
             </div>
         </section>
     </div>
