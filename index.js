@@ -9,9 +9,14 @@ const MongoStore = require('connect-mongodb-session')(expressSession)
 const methodOverride = require('method-override')
 const db = require('./server/server')
 const port = process.env.PORT || 3000
-const server = require('http').createServer(app)
-const { Server } = require('socket.io')
-const io = new Server(server)
+// websocket import
+
+const WebsocketServer = require('ws');
+const server = require('http').createServer(app);
+const wws= new WebsocketServer.Server({
+    server
+})
+//---------------------
 const bodyParser = require('body-parser');
 
 require('ejs')
@@ -38,15 +43,16 @@ app.use(expressSession({
 
 // custom method 
 app.use(methodOverride('_method'))
-
 app.set('view engine', 'ejs')
-
-io.on('connection', (socket) => {
-    console.log('Connected User')
-    socket.on('on-chat', data => {
-        io.emit('user1', data);
-    })
+//websocket
+wws.on('connection', function connection(ws){
+    ws.on('message', function incoming(message) {
+       
+        ws.send(JSON.stringify(JSON.parse(message)));
+    });
+    
 })
+//---------
 
 route(app)
 

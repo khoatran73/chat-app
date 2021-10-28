@@ -52,8 +52,6 @@ window.onload = function () {
                     </a>
                    `)
                });
-            }else{
-               
             }
         })
         .catch(err=>console.log(err))
