@@ -36,7 +36,7 @@ window.onload = function () {
             if(data.length!=0){
                 data.forEach(element => {
                    user_list.append(`
-                    <a href="./chat">
+                    <a href="./chat/${element.slug}">
                         <div class="content">
                             <div class="img-group">
                                 <i class="fas fa-circle"></i>

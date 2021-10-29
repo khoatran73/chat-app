@@ -17,7 +17,14 @@ class LoginController {
             .then(data => {
                 if(data){
                     req.session.email = email
-                    res.render('index',{data})
+                    User.find({}).lean()
+                        .then(data1 => {
+                            res.render('index',{
+                                data,
+                                data1:data1,
+                            })
+                        })
+                        
                 }
             }).catch(err => {
                 res.render('login', {error: "Invalid email or password", title: "Login", email:email})

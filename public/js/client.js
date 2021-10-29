@@ -1,46 +1,61 @@
 
-const server_url=`ws://localhost:3000`
-const ws= new WebSocket(server_url)
-let json;
 
-const chatform= $("#chat-form");
-const chatMsg= $('#message');
-const recieved_msg=""
-chatform.submit(e =>{
-    e.preventDefault();
-    const msg=chatMsg.val();
-    sendMessage(msg);
-        
-    chatMsg.val("");
-    chatMsg.focus();
-})
-function sendMessage(msg) {
-    ws.onopen(msg)
-}
-ws.onopen=function(msg){
-    ws.send(JSON.stringify(msg));
-}
-
-ws.addEventListener('message',(e) =>{
-    let chatValue;
-    if(JSON.parse((e.data)) instanceof Object){
-        json=null
-    }else{
-        json=JSON.parse((e.data))
+(function(){
+    let chatBox = document.querySelector("#chat-box") 
+    chatBox.scrollTop = chatBox.scrollHeight
+    const chatform= $("#chat-form");
+    const chatMsg= $('#message');
+    let ws;
+    function show_receiveMessage(message){
+        $('#chat-box').append(
+        `<div class="chat guest">
+            <div class="details">
+                <p>${message}</p>
+            </div>
+        </div>`)
+        chatBox.scrollTop = chatBox.scrollHeight
     }
-    if(json!=null){
-        chatValue=
+    function show_sendMessage(message){
+        $('#chat-box').append(
         `<div class="chat host">
             <div class="details">
-                <p>${json }</p>
+                <p>${message}</p>
             </div>
-        </div>`
-    }else{
-        chatValue=``
+        </div>`)
+        chatBox.scrollTop = chatBox.scrollHeight
     }
+    function init(){
         
+        if(ws){
+            ws.onerror=ws.onopen=ws.onclose=null;
+            ws.close();
+        }
 
-    $('#chat-box').append(chatValue);
-    let chatBox = document.querySelector("#chat-box")
-    chatBox.scrollTop = chatBox.scrollHeight
-})
+        const server_url=`ws://localhost:3000`
+        ws= new WebSocket(server_url)
+        ws.onopen=()=>{
+            console.log('Connecting to server')
+        }
+        ws.onmessage=({data})=>{
+            show_receiveMessage(data)
+        }
+        ws.onclose=function(){
+            ws=null;
+        }
+        chatform.submit(e =>{
+            e.preventDefault();
+            if(!ws){
+                show_sendMessage('No websocket connection')
+                return ;
+            }
+            ws.send(JSON.stringify(chatMsg.val()))
+            show_sendMessage(chatMsg.val())
+            chatMsg.val("");
+            chatMsg.focus();
+            
+        })
+        
+    }
+    init();
+
+})();

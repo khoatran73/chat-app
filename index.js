@@ -3,6 +3,7 @@ const app = express()
 const route = require('./routes')
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
+
 const MongoStore = require('connect-mongodb-session')(expressSession)
 
 
@@ -18,6 +19,7 @@ const wws= new WebsocketServer.Server({
 })
 //---------------------
 const bodyParser = require('body-parser');
+const { WSASYSCALLFAILURE } = require('constants')
 
 require('ejs')
 require('dotenv').config()
@@ -47,8 +49,13 @@ app.set('view engine', 'ejs')
 //websocket
 wws.on('connection', function connection(ws){
     ws.on('message', function incoming(message) {
+        wws.clients.forEach(function each(client){
+            if(client!= ws && client.readyState==WebsocketServer.OPEN){
+                client.send(JSON.parse(message));
+            }
+        })
        
-        ws.send(JSON.stringify(JSON.parse(message)));
+        // ws.send(JSON.stringify(JSON.parse(message)));
     });
     
 })
