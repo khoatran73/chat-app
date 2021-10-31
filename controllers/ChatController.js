@@ -4,15 +4,17 @@ const User = require("../models/User")
 class ChatController {
 
     get(req, res) {
-        const user = User.findOne({ email: req.session.email }).then(data => {
-            res.render('chat', {
-                title: "Chat", data1: data
-                // // email: ""
+        let id = req.query.id
+        User.findOne({ _id: id })
+            .then(user => {
+                console.log(user)
+                res.render('chat', {
+                    title: "Chat",
+                    user: user
+                })
+            }).catch(err => {
+                console.log(err)
             })
-        }).catch(err => {
-            console.log(err)
-        })
-
     }
 }
 

@@ -16,12 +16,14 @@
                             <div class="status">Online</div>
                         </div>
                     </div>
-                    <% } %>
-
-                        <a href="./logout">Logout</a>
+                <% } %>
+                <a href="./logout">Logout</a>
             </div>
             <form class="form-search" id="search-user">
-                <input type="text" placeholder="Nhập tên để tìm..." id="input-search" name="search_user">
+                <input type="text" placeholder="Nhập tên để tìm..." id="input-search" name="search_user" 
+                <% if (locals.search_user) { %>
+                    value="<%= locals.search_user %>"
+                <% } %>>
                 <button type="submit">
                     <i class="fas fa-search"></i>
                 </button>
@@ -29,27 +31,24 @@
             <div class="user-list">
                 <% if(locals.users && locals.host){%>
                     <% locals.users.forEach(function(user){ %>
-                        <% if(users.email == host.email){%>
-                            <h1> 
-                                continue
-                            </h1>
-                            <% } %>
-                                <a href="./chat/<%= user.slug %>">
-                                    <div class="info">
-                                        <div class="img-group">
-                                            <i class="fas fa-circle"></i>
-                                            <img src="<%= user.image %>" alt="">
-                                        </div>
-                                        <div class="details">
-                                            <div class="name">
-                                                <%=user.name %>
-                                            </div>
-                                            <div class="status">Online</div>
-                                        </div>
+                        <% if(user.email != host.email) { %>
+                            <a href="./chat?id=<%= user._id %>">
+                                <div class="info">
+                                    <div class="img-group">
+                                        <i class="fas fa-circle"></i>
+                                        <img src="<%= user.image %>" alt="">
                                     </div>
-                                </a>
-                                <% }); %>
-                                    <% } %>
+                                    <div class="details">
+                                        <div class="name">
+                                            <%=user.name %>
+                                        </div>
+                                        <div class="status">Online</div>
+                                    </div>
+                                </div>
+                            </a>
+                        <% } %>
+                    <% }); %>
+                <% } %>
             </div>
         </div>
     </div>

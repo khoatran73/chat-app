@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000
 
 const WebsocketServer = require('ws');
 const server = require('http').createServer(app);
-const wws= new WebsocketServer.Server({
+const wws = new WebsocketServer.Server({
     server
 })
 //---------------------
@@ -39,7 +39,7 @@ app.use(expressSession({
     store: new MongoStore({
         url: process.env.mongodb, //YOUR MONGODB URL
         ttl: 1 * 24 * 60 * 60,//1 day
-        autoRemove: 'native' ,
+        autoRemove: 'native',
     })
 }))
 
@@ -47,17 +47,17 @@ app.use(expressSession({
 app.use(methodOverride('_method'))
 app.set('view engine', 'ejs')
 //websocket
-wws.on('connection', function connection(ws){
+wws.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
-        wws.clients.forEach(function each(client){
-            if(client!= ws && client.readyState==WebsocketServer.OPEN){
+        wws.clients.forEach(function each(client) {
+            if (client != ws && client.readyState == WebsocketServer.OPEN) {
                 client.send(JSON.parse(message));
             }
         })
-       
+
         // ws.send(JSON.stringify(JSON.parse(message)));
     });
-    
+
 })
 //---------
 
