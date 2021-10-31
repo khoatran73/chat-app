@@ -1,31 +1,34 @@
 window.onload = function () {
-    let pwdField = document.querySelectorAll("input[type='password']")
+    let password = document.querySelector("#password")
+    let passwordConfirm = document.querySelector("#password-confirm")
 
-    let i1 = document.querySelector("#eye")
-    input_field1 = pwdField[0]
+    let eye1 = document.querySelector("#eye-1")
+    let eye2 = document.querySelector("#eye-2")
 
-    if (i1) {
-        i1.onclick = () => {
-            if (input_field1.type === "password") {
-                input_field1.type = "text"
-                i1.classList.add("active")
+    if (eye1) {
+        eye1.onclick = () => {
+            if (password.type === "password") {
+                password.type = "text"
+                eye1.classList.remove("fa-eye")
+                eye1.classList.add("fa-eye-slash")
             } else {
-                input_field1.type = "password"
-                i1.classList.remove("active")
+                password.type = "password"
+                eye1.classList.remove("fa-eye-slash")
+                eye1.classList.add("fa-eye")
             }
         }
     }
 
-    let i2 = document.querySelector("#eye-2")
-    if (i2) {
-        input_field2 = pwdField[1]
-        i2.onclick = () => {
-            if (input_field2.type === "password") {
-                input_field2.type = "text"
-                i2.classList.add("active")
+    if (eye2) {
+        eye2.onclick = () => {
+            if (passwordConfirm.type === "password") {
+                passwordConfirm.type = "text"
+                eye2.classList.remove("fa-eye")
+                eye2.classList.add("fa-eye-slash")
             } else {
-                input_field2.type = "password"
-                i2.classList.remove("active")
+                passwordConfirm.type = "password"
+                eye2.classList.remove("fa-eye-slash")
+                eye2.classList.add("fa-eye")
             }
         }
     }

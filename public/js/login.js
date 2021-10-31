@@ -1,17 +1,18 @@
 window.onload = function () {
-    let pwdField = document.querySelectorAll("input[type='password']")
+    let password = document.querySelector("#password")
 
-    let i1 = document.querySelector("#eye")
-    input_field1 = pwdField[0]
+    let eye = document.querySelector("#eye")
 
-    if (i1) {
-        i1.onclick = () => {
-            if (input_field1.type === "password") {
-                input_field1.type = "text"
-                i1.classList.add("active")
+    if (eye) {
+        eye.onclick = () => {
+            if (password.type === "password") {
+                password.type = "text"
+                eye.classList.remove("fa-eye")
+                eye.classList.add("fa-eye-slash")
             } else {
-                input_field1.type = "password"
-                i1.classList.remove("active")
+                password.type = "password"
+                eye.classList.remove("fa-eye-slash")
+                eye.classList.add("fa-eye")
             }
         }
     }

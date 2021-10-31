@@ -1,17 +1,17 @@
 require("express-session")
 require('dotenv').config()
-const User=require("../server/model/User.js")
+const User = require("../models/User")
 
 class SearchController {
     post(req, res) {
         let key = req.params.key
-        const user=User.find({name:{$regex: `.*${key}.*`} }).lean()
-        .then(data => {
-            res.end(JSON.stringify(data))
-        }).catch(err => {
-            console.log(err)
-        })
-        
+        const user = User.find({ name: { $regex: `.*${key}.*` } }).lean()
+            .then(data => {
+                res.end(JSON.stringify(data))
+            }).catch(err => {
+                console.log(err)
+            })
+
     }
 }
 

@@ -1,50 +1,89 @@
 <%- include('layouts/header.ejs'); -%>
     <script src="./js/index.js"></script>
     <div class="wrapper">
-        <section class="users">
-            <header>
-                <div class="content">
+        <div class="form">
+            <div class="header">
+                <div class="info">
                     <div class="img-group">
+                        <img src="./images/uploads/avt1.jpg" alt="">
                         <i class="fas fa-circle"></i>
-                        <img src="<%=locals.data.image %>" alt="">
                     </div>
                     <div class="details">
-                        <span><%=locals.data.name %></span>
-                        <p>
-                            Đang hoạt động
-                        </p>
+                        <div class="name">Anh Khoa</div>
+                        <div class="status">Online</div>
                     </div>
                 </div>
-                <a href="./logout" class="logout">Logout</a>
-            </header>
-            <form id="search-user" action='/search' method='post' class="search">
-                <span id="search_txt" class="text">Chọn một User để chat</span>
-                <input name="search_user" type="text" id="input-search" placeholder="Nhâp tên để tìm...">
-                <button type="submit" id="btn-search"><i class="fas fa-search"></i></button>
-            </form>
-            <!-- Render in db -->
-
-            <div class="users-list">
-                <% if(locals.data1){%>
-                    <% locals.data1.forEach(function(user){ %>
-                        <a href="./chat">
-                            <div class="content">
-                                <div class="img-group">
-                                    <i class="fas fa-circle"></i>
-                                    <img src="<%=user.image %>" alt="">
-                                </div>
-                                <div class="details">
-                                    <span><%=user.name %></span>
-                                    <p>
-                                    <%=user.name %>
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    <% }); %>
-                <% } %>
+                <a href="">Logout</a>
             </div>
-        </section>
+            <form class="form-search" id="search-user">
+                <input type="text" placeholder="Nhập tên để tìm..." id="input-search" name="search_user">
+                <button type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <div class="user-list">
+                <a href="">
+                    <div class="info">
+                        <div class="img-group">
+                            <img src="./images/uploads/avt1.jpg" alt="">
+                            <i class="fas fa-circle"></i>
+                        </div>
+                        <div class="details">
+                            <div class="name">Anh Khoa</div>
+                            <div class="status">Online</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="info">
+                        <div class="img-group">
+                            <img src="./images/uploads/avt1.jpg" alt="">
+                            <i class="fas fa-circle"></i>
+                        </div>
+                        <div class="details">
+                            <div class="name">Anh Khoa</div>
+                            <div class="status">Online</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="info">
+                        <div class="img-group">
+                            <img src="./images/uploads/avt1.jpg" alt="">
+                            <i class="fas fa-circle"></i>
+                        </div>
+                        <div class="details">
+                            <div class="name">Anh Khoa</div>
+                            <div class="status">Online</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="info">
+                        <div class="img-group">
+                            <img src="./images/uploads/avt1.jpg" alt="">
+                            <i class="fas fa-circle"></i>
+                        </div>
+                        <div class="details">
+                            <div class="name">Anh Khoa</div>
+                            <div class="status">Online</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="info">
+                        <div class="img-group">
+                            <img src="./images/uploads/avt1.jpg" alt="">
+                            <i class="fas fa-circle"></i>
+                        </div>
+                        <div class="details">
+                            <div class="name">Anh Khoa</div>
+                            <div class="status">Online</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
 
     <%- include('layouts/footer.ejs'); -%>
