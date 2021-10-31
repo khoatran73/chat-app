@@ -22,14 +22,9 @@ class RegisterController {
 
             await User.find({ email: email })
                 .then(user => {
-                    if (user) {
+                    if (user.length > 0) {
                         error = "Email already exist, please try again"
-                    } else {
-                        next()
                     }
-                })
-                .catch(err => {
-                    console.log(err)
                 })
 
             if (error) {
