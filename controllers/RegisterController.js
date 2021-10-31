@@ -1,69 +1,69 @@
 require("express-session")
 require('dotenv').config()
-require('express');
+require('express')
 const User = require("../models/User")
-const multer = require('multer');
-const path = require('path')
 const fs = require('fs')
-const upload = multer({
-    dest: "./public/images/uploads",
-    fileFilter: (req, file, callback) => {  //fileFilter là middleware kiểm tra file trước khi upload
-        if (file.mimetype.startsWith('image/')) {
-            callback(null, true);//cho phép upload
-        }
-        else {
-            callback(null, false)
-        }
-    }, limits: { fileSize: 500000 }  //max file size 5kb
-})
-
+const path = require('path')
+const { promisify } = require('util')
+const unlink = promisify(fs.unlink)
 class RegisterController {
     get(req, res) {
         res.render('register', {
-            title: "Register",
-            // // email: ""
+            title: "Register"
         })
     }
-    post(req, res) {
-        let uploader = upload.single('image')
-        uploader(req, res, err => {
-            let image = req.file;
-            let { name, email, password, password2 } = req.body;
-            let msg_err = '';
-            if (!image) {
-                msg_err = "Không nhận được hình ảnh"
-            } else if (password !== password2) {
-                msg_err = "Mật khẩu không khớp"
-            } else if (err) {
-                msg_err = "Hình ảnh kích thước quá lớn"
-            } else {
-                User.findOne({ email: email })
-                    .then(data => {
-                        if (data) {
-                            msg_err = "Email đã được đăng kí !"
-                        }
-                    })
+    async post(req, res, next) {
+        if (req.body.name && req.body.email && req.body.password && req.body.password2 && req.file) {
+            let { name, email, password, password2 } = req.body
+            let error = ""
+            if (password !== password2) {
+                error = "Confirm password incorrect"
             }
-            console.log(msg_err);
-            if (msg_err.length != 0) {
-                res.render('register', { message: msg_err })
+
+            await User.find({ email: email })
+                .then(user => {
+                    if (user) {
+                        error = "Email already exist, please try again"
+                    } else {
+                        next()
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+
+            if (error) {
+                unlink(path.join(__dirname, '../public/images/avatar/' + req.file.filename))
+                res.render("register", {
+                    title: "Register",
+                    error: error
+                })
             } else {
-                let imgpath = `./public/images/uploads/${email}.png`
-                fs.renameSync(image.path, imgpath)
-                let user_account = {
+                let userJson = {
                     name: name,
                     email: email,
                     password: password,
-                    image: `./images/uploads/${email}.png`
+                    image: req.file.path.split("\\").slice(1).join("/")
                 }
-                let user = new User(user_account)
+
+                let user = new User(userJson)
+
                 user.save()
-                res.redirect('/login')
+
+                res.render('./login', {
+                    title: "Login"
+                })
             }
-
-        })
+        } else {
+            if (req.file) {
+                unlink(path.join(__dirname, '../public/images/avatar/' + req.file.filename))
+            }
+            res.render('./register', {
+                error: "Please enter enough information",
+                title: "Register"
+            })
+        }
     }
-
 }
 
 module.exports = new RegisterController
