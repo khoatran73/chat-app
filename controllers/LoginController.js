@@ -26,7 +26,6 @@ class LoginController {
                 }
             })
             .catch(err => {
-                // console.log("err")
                 res.send("err")
             })
     }

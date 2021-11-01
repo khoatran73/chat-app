@@ -7,13 +7,12 @@ class ChatController {
         let id = req.query.id
         User.findOne({ _id: id })
             .then(user => {
-                console.log(user)
                 res.render('chat', {
                     title: "Chat",
                     user: user
                 })
-            }).catch(err => {
-                console.log(err)
+            }).catch(() => {
+                res.render("error", { title: "404 - Page Not Found" })
             })
     }
 }

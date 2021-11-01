@@ -9,7 +9,6 @@ class HomeController {
                 .then(host => {
                     User.find({ name: { $regex: req.query.search_user, $options: "i" } }).lean() // i: Case insensitivity to match upper and lower cases
                         .then(users => {
-                            console.log(host)
                             res.render('index', {
                                 search_user: req.query.search_user,
                                 host: host[0],
@@ -17,13 +16,11 @@ class HomeController {
                             })
                         })
                 }).catch(err => {
-                    console.log(err)
+                    res.send("error")
                 })
         } else {
-            console.log(req.session.email)
             User.find({ email: req.session.email })
                 .then(host => {
-
                     User.find({}).lean()
                         .then(users => {
                             res.render('index', {
@@ -32,7 +29,7 @@ class HomeController {
                             })
                         })
                 }).catch(err => {
-                    console.log(err)
+                    res.send("error")
                 })
         }
     }

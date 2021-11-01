@@ -1,7 +1,15 @@
 window.onload = function () {
-    let password = document.querySelector("#password")
+    // Login
+    showPassword("#eye", "#password")
 
-    let eye = document.querySelector("#eye")
+    // Register
+    showPassword("#eye-1", "#password")
+    showPassword("#eye-2", "#password-confirm")
+}
+
+function showPassword(idI, idP) {
+    const eye = document.querySelector(idI)
+    const password = document.querySelector(idP)
 
     if (eye) {
         eye.onclick = () => {
@@ -16,5 +24,6 @@ window.onload = function () {
             }
         }
     }
+
 }
 

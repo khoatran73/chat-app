@@ -14,7 +14,7 @@
         $('#chat-box').append(
             `<div class="chat guest">
             <div class="details">
-                <p>${message}</p>
+                ${message}
             </div>
         </div>`)
         chatBox.scrollTop = chatBox.scrollHeight
@@ -23,7 +23,7 @@
         $('#chat-box').append(
             `<div class="chat host">
             <div class="details">
-                <p>${message}</p>
+                ${message}
             </div>
         </div>`)
         chatBox.scrollTop = chatBox.scrollHeight
