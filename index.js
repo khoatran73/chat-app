@@ -3,15 +3,11 @@ const app = express()
 const route = require('./routes')
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
-
 const MongoStore = require('connect-mongodb-session')(expressSession)
-
-
 const methodOverride = require('method-override')
 const db = require('./server/server')
 const port = process.env.PORT || 3000
 // websocket import
-
 const WebsocketServer = require('ws');
 const server = require('http').createServer(app);
 const wws = new WebsocketServer.Server({
@@ -20,6 +16,8 @@ const wws = new WebsocketServer.Server({
 //---------------------
 const bodyParser = require('body-parser');
 const { WSASYSCALLFAILURE } = require('constants')
+
+const Message = require("./models/Message")
 
 require('ejs')
 require('dotenv').config()
@@ -46,19 +44,23 @@ app.use(expressSession({
 // custom method 
 app.use(methodOverride('_method'))
 app.set('view engine', 'ejs')
+
 //websocket
 wws.on('connection', function connection(ws) {
-    ws.on('message', function incoming(message) {
-        wws.clients.forEach(function each(client) {
-            if (client != ws && client.readyState == WebsocketServer.OPEN) {
-                client.send(JSON.parse(message));
+    ws.on('message', function incoming(jsonMessage) {
+        let json = JSON.parse(jsonMessage)
+        let message = new Message(json)
+        message.save()
+        wws.clients.forEach(function (client) {
+            if (client !== ws && client.readyState == WebsocketServer.OPEN) {
+                client.send(JSON.stringify(json))
             }
         })
-
-        // ws.send(JSON.stringify(JSON.parse(message)));
-    });
+    })
 
 })
+
+
 //---------
 
 route(app)

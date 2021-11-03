@@ -11,9 +11,8 @@
                     <%} %>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="text" placeholder="Nhập email" name="email" 
-                            <% if (locals.email) { %>
-                                value="<%= locals.email %>" <%} %>>
+                            <input type="text" placeholder="Nhập email" name="email" <% if (locals.email) { %>
+                            value="<%= locals.email %>" <%} %>>
                         </div>
                         <div class="form-group">
                             <label for="">Mật khẩu</label>
@@ -28,3 +27,18 @@
         </div>
     </div>
     <%- include('layouts/footer.ejs'); -%>
+        <script>
+            let emailBox = $("input[name='email']")
+            let passwordBox = $("input[name='password']")
+            let value = emailBox.val()
+            emailBox.focus().val('').val(value)
+
+            emailBox.on("keydown", hideErrorText)
+            passwordBox.on("keydown", hideErrorText)
+
+            function hideErrorText() {
+                let error = $(".error-text")
+                error.css("display", "none")
+            }
+
+        </script>

@@ -1,15 +1,34 @@
 require("express-session")
 require('dotenv').config()
 const User = require("../models/User")
+const Message = require("../models/Message")
 class ChatController {
+    async get(req, res) {
+        let messages
+        let guest
 
-    get(req, res) {
-        let id = req.query.id
-        User.findOne({ _id: id })
+        await User.findOne({ _id: req.query.id })
             .then(user => {
+                guest = user
+            }).catch(() => {
+                res.render("error", { title: "404 - Page Not Found" })
+            })
+
+        await Message.find({ $or: [{ host_email: req.session.email, guest_email: guest.email }, { host_email: guest.email, guest_email: req.session.email }] })
+            .then(mess => {
+                messages = mess
+            })
+            .catch(() => {
+                res.render("error", { title: "404 - Page Not Found" })
+            })
+
+        await User.findOne({ email: req.session.email })
+            .then(host => {
                 res.render('chat', {
                     title: "Chat",
-                    user: user
+                    host: host,
+                    guest: guest,
+                    messages: messages
                 })
             }).catch(() => {
                 res.render("error", { title: "404 - Page Not Found" })
