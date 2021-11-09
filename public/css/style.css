@@ -244,6 +244,10 @@ body {
     border-bottom: 1px solid var(--border-color);
 }
 
+.user-list a:last-child .info {
+    border-bottom: none;
+}
+
 :is(.user-list, .chat-box)::-webkit-scrollbar {
     width: 0;
 }
