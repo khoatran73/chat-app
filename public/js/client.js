@@ -7,10 +7,10 @@
         chatBox.scrollTop = chatBox.scrollHeight
     }
 
-    const chatForm = $("#chat-form");
-    const chatMsg = $('#message');
-    let ws;
-    init();
+    const chatForm = $("#chat-form")
+    const chatMsg = $('#message')
+    let ws
+    init()
 
     function show_receiveMessage(messages) {
         let src = $("#guest-img").attr('src')
@@ -48,8 +48,8 @@
 
     function init() {
         if (ws) {
-            ws.onerror = ws.onopen = ws.onclose = null;
-            ws.close();
+            ws.onerror = ws.onopen = ws.onclose = null
+            ws.close()
         }
 
         const server_url = `ws://localhost:3000`
@@ -61,27 +61,26 @@
         ws.onmessage = (json) => {
             let messages = JSON.parse(json.data)
             show_receiveMessage(messages)
-
         }
         ws.onclose = function () {
-            ws = null;
+            ws = null
         }
 
         chatForm.submit(e => {
-            e.preventDefault();
+            e.preventDefault()
             if (!ws) {
-                console.log('No socket')
-                return;
+                return
             }
+            
+            let date = new Date()
 
-            let date = new Date
+            let hours = date.getHours()
+            let minutes = (date.getMinutes() <= 9) ? "0" + date.getMinutes() : date.getMinutes()
+            let dates = (date.getDate() <= 9) ? "0" + date.getDate() : date.getDate()
+            let months = (date.getMonth() <= 9) ? "0" + date.getMonth() + 1 : date.getMonth() + 1
+            let years = date.getFullYear()
 
-            let createdAt
-            if (date.getMinutes() <= 9) {
-                createdAt = date.getHours() + ":0" + date.getMinutes() + " " + date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()
-            } else {
-                createdAt = date.getHours() + ":" + date.getMinutes() + " " + date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()
-            }
+            let createdAt = hours + ":" + minutes + " " + dates + "-" + months + ", " + years
 
             let jsonMessage = {
                 host_email: $("#host_email").val(),
@@ -93,8 +92,8 @@
 
             ws.send(JSON.stringify(jsonMessage))
             show_sendMessage(chatMsg.val(), createdAt)
-            chatMsg.val("");
-            chatMsg.focus();
+            chatMsg.val("")
+            chatMsg.focus()
         })
     }
-})();
+})()

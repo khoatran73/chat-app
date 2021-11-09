@@ -8,13 +8,13 @@ const methodOverride = require('method-override')
 const db = require('./server/server')
 const port = process.env.PORT || 3000
 // websocket import
-const WebsocketServer = require('ws');
-const server = require('http').createServer(app);
+const WebsocketServer = require('ws')
+const server = require('http').createServer(app)
 const wws = new WebsocketServer.Server({
     server
 })
 //---------------------
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 const { WSASYSCALLFAILURE } = require('constants')
 
 const Message = require("./models/Message")
@@ -52,12 +52,12 @@ wws.on('connection', function connection(ws) {
         let message = new Message(json)
         message.save()
         wws.clients.forEach(function (client) {
+            console.log(client.stream_id)
             if (client !== ws && client.readyState == WebsocketServer.OPEN) {
                 client.send(JSON.stringify(json))
             }
         })
     })
-
 })
 
 

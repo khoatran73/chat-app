@@ -1,37 +1,54 @@
 require("express-session")
 require('dotenv').config()
 const User = require("../models/User")
+const Message = require("../models/Message")
 
 class HomeController {
-    get(req, res) {
+    async get(req, res) {
+        let host
+        let userSearch = []
+
+        await User.find({ email: req.session.email })
+            .then(hostInfo => {
+                host = hostInfo
+            }).catch(err => {
+                res.send("error")
+            })
+
         if (req.query.search_user) {
-            User.find({ email: req.session.email })
-                .then(host => {
-                    User.find({ name: { $regex: req.query.search_user, $options: "i" } }).lean() // i: Case insensitivity to match upper and lower cases
-                        .then(users => {
-                            res.render('index', {
-                                search_user: req.query.search_user,
-                                host: host[0],
-                                users: users, //search users
-                            })
-                        })
-                }).catch(err => {
-                    res.send("error")
+            await User.find({ name: { $regex: req.query.search_user, $options: "i" } }) // i: Case insensitivity to match upper and lower cases
+                .then(users => {
+                    userSearch = users
                 })
         } else {
-            User.find({ email: req.session.email })
-                .then(host => {
-                    User.find({}).lean()
-                        .then(users => {
-                            res.render('index', {
-                                host: host[0],
-                                users: users,
-                            })
-                        })
-                }).catch(err => {
-                    res.send("error")
+            await User.find({}).lean()
+                .then(users => {
+                    userSearch = users
                 })
         }
+
+        let messageArr = []
+        for (const user of userSearch) {
+            await Message.find({
+                $or: [{ host_email: req.session.email, guest_email: user.email },
+                { host_email: user.email, guest_email: req.session.email }]
+            })
+                .then(message => {
+                    message.forEach((mess, index) => {
+                        if (index == message.length - 1) {
+                            messageArr.push(mess)
+                        }
+                    })
+                })
+        }
+
+        res.render('index', {
+            search_user: req.query.search_user || '',
+            host: host[0],
+            users: userSearch, //search users
+            messageArr: messageArr
+        })
+
     }
 }
 

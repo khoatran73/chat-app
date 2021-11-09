@@ -35,14 +35,22 @@
                             <a href="./chat?id=<%= user._id %>">
                                 <div class="info">
                                     <div class="img-group">
-                                        <i class="fas fa-circle"></i>
                                         <img src="<%= user.image %>" alt="">
                                     </div>
-                                    <div class="details">
+                                    <div class="details user-list-details">
                                         <div class="name">
-                                            <%=user.name %>
+                                            <%= user.name %>
                                         </div>
-                                        <div class="status">Online</div>
+                                        <% if(locals.messageArr) { %>
+                                            <% locals.messageArr.forEach(function(message){ %>
+                                                <% if(message.host_email == user.email && message.guest_email == host.email) { %>
+                                                    <div class="message-history"><%= message.message %> <span style="content: '\00B7'">&#183;</span> <span style="font-size: 13px; color: #888"><%= message.createdAt %></span></div>
+                                                <% } %>
+                                                <% if(message.host_email == host.email && message.guest_email == user.email) { %>
+                                                    <div class="message-history">Bạn: <%= message.message %> <span style="content: '\00B7'">&#183;</span> <span style="font-size: 13px; color: #888"><%= message.createdAt %></span></div>
+                                                <% } %>
+                                            <% }); %>
+                                        <% } %>
                                     </div>
                                 </div>
                             </a>
@@ -52,5 +60,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const userListDetails = document.querySelectorAll(".user-list-details")
+        
+        userListDetails.forEach(userListDetail => {
+            if (userListDetail.childNodes.length === 3) {
+                let div = document.createElement("div")
+                div.classList.add("message-history")
+                div.innerHTML = 'Chưa trò chuyện'
+                userListDetail.appendChild(div)
+            }
+        })
+        
+    </script>
 
     <%- include('layouts/footer.ejs'); -%>

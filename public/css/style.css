@@ -6,6 +6,9 @@ body {
     justify-content: center;
     width: 100vw;
     height: 100vh;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none;
 }
 
 .wrapper {
@@ -171,20 +174,26 @@ body {
 
 :is(.header, .user-list a) .info {
     display: flex;
-    align-items: center;
     color: black;
+}
+
+.user-list a .info .details .message-history {
+    color: #333;
+    font-size: 15px;
 }
 
 :is(.header, .user-list a) .info .img-group {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 :is(.header, .user-list a) .info .img-group i {
     position: absolute;
     color: #31A24C;
     font-size: 10px;
-    right: 2px;
-    bottom: 8px;
+    right: 0px;
+    bottom: 6px;
 }
 
 :is(.header, .user-list a) .info .img-group img {
