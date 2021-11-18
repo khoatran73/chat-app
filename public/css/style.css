@@ -101,7 +101,7 @@ body {
     border-radius: 5px;
     background: #f8d7da;
     border: 1px solid #f5c6cb;
-    margin-bottom: 10px;
+    margin: 10px 0 10px 0;
 }
 
 /* Image */
@@ -111,7 +111,7 @@ body {
 	display: inline-block;
 	width: 100%;
 	height: calc(2.25rem + 2px);
-	margin-bottom: 0;
+	margin-bottom: 10px;
 }
   
 .custom-file-input {

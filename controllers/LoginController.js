@@ -12,22 +12,28 @@ class LoginController {
     post(req, res) {
         let { email, password } = req.body
 
-        User.findOne({ email: email, password: password })
-            .then(user => {
-                if (user) {
+        User.findOne({ email: email }, function (err, user) {
+            let error
+            if (user === null) {
+                error = "Email hoặc mật khẩu không đúng" // sai email
+            } else {
+                if (user.validPassword(password)) {
                     req.session.email = user.email
-                    res.redirect('./')
-                } else {
-                    res.render('login', {
-                        title: "Login",
-                        error: "Invalid email or password",
-                        email: req.body.email
-                    })
+                    res.redirect('../')
                 }
-            })
-            .catch(err => {
-                res.send("err")
-            })
+                else {
+                    error = "Email hoặc mật khẩu không đúng" // sai mat khau
+                }
+            }
+
+            if (error) {
+                res.render('login', {
+                    title: "Login",
+                    error: error,
+                    email: req.body.email
+                })
+            }
+        })
     }
 }
 

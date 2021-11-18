@@ -1,5 +1,3 @@
-
-
 (function () {
     let chatBox = document.querySelector("#chat-box")
 
@@ -71,7 +69,7 @@
             if (!ws) {
                 return
             }
-            
+
             let date = new Date()
 
             let hours = date.getHours()
