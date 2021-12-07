@@ -50,8 +50,8 @@
             ws.close()
         }
 
-        // const server_url = `wss://chat-app.up.railway.app`
-        const server_url = `ws://localhost:3000`
+        const server_url = `wss://chat-app.up.railway.app`
+        // const server_url = `ws://localhost:3000`
         ws = new WebSocket(server_url)
         ws.onopen = () => {
             // console.log('Connecting to server')
