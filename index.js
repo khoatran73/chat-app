@@ -3,7 +3,7 @@ const app = express()
 const route = require('./routes')
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
-const MongoStore = require('connect-mongodb-session')(expressSession)
+// const MongoStore = require('connect-mongodb-session')(expressSession)
 const methodOverride = require('method-override')
 const db = require('./server/server')
 // const port = process.env.PORT || 3000
@@ -34,11 +34,11 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false,
     secret: 'secret',
-    store: new MongoStore({
-        url: process.env.mongodb, //YOUR MONGODB URL
-        ttl: 1 * 24 * 60 * 60,//1 day
-        autoRemove: 'native',
-    })
+    // store: new MongoStore({
+    //     url: process.env.mongodb, //YOUR MONGODB URL
+    //     ttl: 1 * 24 * 60 * 60,//1 day
+    //     autoRemove: 'native',
+    // })
 }))
 
 // custom method 
