@@ -60,6 +60,7 @@
             let messages = JSON.parse(json.data)
             show_receiveMessage(messages)
         }
+        
         ws.onclose = function () {
             ws = null
         }
@@ -71,7 +72,6 @@
             }
 
             let date = new Date()
-
             let hours = date.getHours()
             let minutes = (date.getMinutes() <= 9) ? "0" + date.getMinutes() : date.getMinutes()
             let dates = (date.getDate() <= 9) ? "0" + date.getDate() : date.getDate()
