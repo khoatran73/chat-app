@@ -6,7 +6,7 @@ const expressSession = require('express-session')
 const MongoStore = require('connect-mongodb-session')(expressSession)
 const methodOverride = require('method-override')
 const db = require('./server/server')
-const port = process.env.PORT || 3000
+// const port = process.env.PORT || 3000
 // websocket import
 const WebsocketServer = require('ws')
 const server = require('http').createServer(app)
@@ -52,7 +52,6 @@ wws.on('connection', function connection(ws) {
         let message = new Message(json)
         message.save()
         wws.clients.forEach(function (client) {
-            console.log(client.stream_id)
             if (client !== ws && client.readyState == WebsocketServer.OPEN) {
                 client.send(JSON.stringify(json))
             }
@@ -65,6 +64,4 @@ wws.on('connection', function connection(ws) {
 
 route(app)
 
-server.listen(port, () => {
-    console.log('listening on port ' + port)
-})
+app.listen(process.env.PORT || 3000)
