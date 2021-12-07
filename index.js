@@ -3,7 +3,6 @@ const app = express()
 const route = require('./routes')
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
-// const MongoStore = require('connect-mongodb-session')(expressSession)
 const methodOverride = require('method-override')
 const db = require('./server/server')
 // const port = process.env.PORT || 3000
@@ -15,7 +14,6 @@ const wws = new WebsocketServer.Server({
 })
 //---------------------
 const bodyParser = require('body-parser')
-const { WSASYSCALLFAILURE } = require('constants')
 
 const Message = require("./models/Message")
 
@@ -31,14 +29,13 @@ app.use(express.json())
 app.use(express.static("public"))
 app.use(cookieParser())
 app.use(expressSession({
+    cookie: {
+        secure: true,
+        maxAge: 60000
+    },
     resave: false,
     saveUninitialized: false,
-    secret: 'secret',
-    // store: new MongoStore({
-    //     url: process.env.mongodb, //YOUR MONGODB URL
-    //     ttl: 1 * 24 * 60 * 60,//1 day
-    //     autoRemove: 'native',
-    // })
+    secret: 'secret'
 }))
 
 // custom method 
