@@ -43,10 +43,11 @@
                                         <% if(locals.messageArr) { %>
                                             <% locals.messageArr.forEach(function(message){ %>
                                                 <% if(message.host_email == user.email && message.guest_email == host.email) { %>
-                                                    <div class="message-history"><%= message.message %> <span style="content: '\00B7'">&#183;</span> <span style="font-size: 13px; color: #888"><%= message.createdAt %></span></div>
+                                                    <div class="message-history">
+                                                        <span><%= message.message %></span><span style="font-size: 13px; color: #999"><%= message.createdAt %></span></div>
                                                 <% } %>
                                                 <% if(message.host_email == host.email && message.guest_email == user.email) { %>
-                                                    <div class="message-history">Bạn: <%= message.message %> <span style="content: '\00B7'">&#183;</span> <span style="font-size: 13px; color: #888"><%= message.createdAt %></span></div>
+                                                    <div class="message-history"><span>Bạn: <%= message.message %></span><span style="font-size: 13px; color: #999"><%= message.createdAt %></span></div>
                                                 <% } %>
                                             <% }); %>
                                         <% } %>
