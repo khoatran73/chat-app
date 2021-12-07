@@ -50,7 +50,7 @@
             ws.close()
         }
 
-        const server_url = `ws://https://chat-app-fcao.herokuapp.com/`
+        const server_url = `wss://https://chat-app-fcao.herokuapp.com/`
         ws = new WebSocket(server_url)
         ws.onopen = () => {
             console.log('Connecting to server')
