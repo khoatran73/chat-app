@@ -4,6 +4,7 @@ const route = require('./routes')
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
 const methodOverride = require('method-override')
+// const MongoStore = require('connect-mongo')(expressSession)
 const db = require('./server/server')
 // const port = process.env.PORT || 3000
 // websocket import
@@ -31,7 +32,8 @@ app.use(cookieParser())
 app.use(expressSession({
     resave: false,
     saveUninitialized: false,
-    secret: 'secret'
+    secret: 'secret',
+    // store: new MongoStore(),
 }))
 
 // custom method 
