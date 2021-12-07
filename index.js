@@ -65,6 +65,4 @@ wws.on('connection', function connection(ws) {
 
 route(app)
 
-server.listen(port, () => {
-    console.log('listening on port ' + port)
-})
+app.listen(process.env.PORT || 3000)
