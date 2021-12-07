@@ -29,10 +29,6 @@ app.use(express.json())
 app.use(express.static("public"))
 app.use(cookieParser())
 app.use(expressSession({
-    cookie: {
-        secure: true,
-        maxAge: 60000
-    },
     resave: false,
     saveUninitialized: false,
     secret: 'secret'

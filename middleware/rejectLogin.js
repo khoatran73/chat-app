@@ -1,6 +1,6 @@
 function rejectLogin(req, res, next) {
     if (req.session.email) {
-        res.redirect("./")
+        res.redirect("/")
     } else {
         next()
     }
