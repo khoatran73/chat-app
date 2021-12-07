@@ -17,7 +17,6 @@ class RegisterController {
     async post(req, res) {
         let result = validationResult(req)
         let error = ""
-        console.log(result)
 
         if (!result.isEmpty()) {
             error = result.errors[0].msg
