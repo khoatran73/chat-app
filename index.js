@@ -3,7 +3,9 @@ const app = express()
 const route = require('./routes')
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
+const cookieSession = require('cookie-session')
 const methodOverride = require('method-override')
+const MemoryStore = require('session-memory-store')(expressSession)
 // const MongoStore = require('connect-mongo')(expressSession)
 const db = require('./server/server')
 // const port = process.env.PORT || 3000
@@ -29,12 +31,17 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static("public"))
 app.use(cookieParser())
-app.use(expressSession({
-    resave: false,
-    saveUninitialized: false,
+app.use(cookieSession({
     secret: 'secret',
-    // store: new MongoStore(),
+    store: new MemoryStore(60 * 60 * 12),
+    cookie: { maxAge: 60 * 60 * 1000 }
 }))
+// app.use(expressSession({
+//     resave: false,
+//     saveUninitialized: false,
+//     secret: 'secret',
+//     // store: new MongoStore(),
+// }))
 
 // custom method 
 app.use(methodOverride('_method'))
