@@ -247,6 +247,9 @@ body {
         text-overflow: ellipsis; 
         font-size: 12px !important;
     }
+    :is(.header, .user-list a) .info .img-group i {
+        font-size: 8.5px !important;
+    }
 }
 
 @media (max-width: 400px) {
