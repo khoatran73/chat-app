@@ -190,6 +190,81 @@ body {
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis; 
+    margin-right: 4px;
+}
+
+/* @media (max-width: 449px) {
+    
+} */
+
+@media (max-width: 449px) {
+    .wrapper {
+        width: calc(100vw - 16px);
+    }
+    .form {
+        padding: 18px 26px;
+        overflow: hidden;
+    }
+
+    .header a {
+        font-size: 14px;
+        padding: 4px 12px;
+    }
+
+    :is(.header, .user-list a) .info .details {
+        margin-left: 10px !important;
+    }
+
+    .form-search input {
+        font-size: 14px !important;
+    }
+
+    .form-search button {
+        font-size: 15px !important;
+    }
+
+    :is(.header, .user-list a) .info .details .name {
+        font-size: 16px !important;
+    }
+
+    :is(.header, .user-list a) .info .details .status {
+        font-size: 14px !important;
+    }
+    :is(.header, .user-list a) .info .img-group img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .user-list a .info .details .message-history span:first-child {
+        width: 150px;
+        font-size: 13px;
+    }
+    .user-list a .info .details .message-history span:last-child {
+        display: inline-block;
+        width: 110px;
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .chat-box .chat .details {
+        max-width: 200px !important;
+        font-size: 14px !important;
+    }
+
+    #chat-form input {
+        font-size: 14px !important;
+        padding: 0 12px !important;
+        width: calc(100% - 55px) !important;
+    }
+    #chat-form button {
+        font-size: 16px !important;
+        width: 50px !important;
+        height: 44px !important;
+    }
 }
 
 :is(.header, .user-list a) .info .img-group {
